@@ -15,9 +15,9 @@
 
 
     <link rel="apple-touch-icon"
-          href="{{ ($snipeSettings) && ($snipeSettings->favicon!='') ?  Storage::disk('public')->url(e($snipeSettings->logo)) :  config('app.url').'/img/snipe-logo-bug.png' }}">
+          href="{{ ($snipeSettings) && ($snipeSettings->favicon!='') ?  Storage::disk('public')->url(e($snipeSettings->logo)) :  config('app.url').'/img/static_logo.png' }}">
     <link rel="apple-touch-startup-image"
-          href="{{ ($snipeSettings) && ($snipeSettings->favicon!='') ?  Storage::disk('public')->url(e($snipeSettings->logo)) :  config('app.url').'/img/snipe-logo-bug.png' }}">
+          href="{{ ($snipeSettings) && ($snipeSettings->favicon!='') ?  Storage::disk('public')->url(e($snipeSettings->logo)) :  config('app.url').'/img/static_logo.png' }}">
     <link rel="shortcut icon" type="image/ico"
           href="{{ ($snipeSettings) && ($snipeSettings->favicon!='') ?  Storage::disk('public')->url(e($snipeSettings->favicon)) : config('app.url').'/favicon.ico' }} ">
 
@@ -114,7 +114,7 @@
                                 <a class="logo navbar-brand no-hover" href="{{ config('app.url') }}">
                                     @if ($snipeSettings->logo!='')
                                     <img class="navbar-brand-img"
-                                             src="{{config('app.url').'/img/static_logo.png'}}"
+                                             src="{{config('app.url').'/img/icons/static_logo.svg'}}"
                                              alt="{{ $snipeSettings->site_name }} logo">
                                         
                                     @endif
@@ -124,7 +124,7 @@
                                 <a class="logo navbar-brand no-hover" href="{{ config('app.url') }}">
                                     @if ($snipeSettings->logo!='')
                                     <img class="navbar-brand-img"
-                                             src="{{config('app.url').'/img/static_logo.png'}}"
+                                             src="{{config('app.url').'/img/icons/static_logo.svg'}}"
                                              alt="{{ $snipeSettings->site_name }} logo">
                                         
                                     @endif
@@ -133,7 +133,7 @@
                             @else
                                 <a class="logo navbar-brand no-hover" href="{{ config('app.url') }}">
                                 <img class="navbar-brand-img"
-                                             src="{{config('app.url').'/img/static_logo.png'}}"
+                                             src="{{config('app.url').'/img/icons/static_logo.svg'}}"
                                              alt="{{ $snipeSettings->site_name }} logo">
                                         
                                         {{ Auth::user()->first_name }}
@@ -145,7 +145,7 @@
                     <!-- Navbar Right Menu -->
                     <div class="navbar-custom-menu">
                         <ul class="nav navbar-nav">
-                            @can('index', \App\Models\Asset::class)
+                            <!-- @can('index', \App\Models\Asset::class)
                                 <li aria-hidden="true"
                                     {!! (Request::is('hardware*') ? ' class="active"' : '') !!} tabindex="-1">
                                     <a href="{{ url('hardware') }}" accesskey="1" tabindex="-1">
@@ -187,7 +187,7 @@
                                         <span class="sr-only">{{ trans('general.components') }}</span>
                                     </a>
                                 </li>
-                            @endcan
+                            @endcan -->
 
                             @can('index', \App\Models\Asset::class)
                                 <li>
@@ -215,7 +215,8 @@
                             @can('admin')
                                 <li class="dropdown" aria-hidden="true">
                                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" tabindex="-1">
-                                        {{ trans('general.create') }}
+                                        <!-- {{ trans('general.create') }} -->
+                                        New
                                         <strong class="caret"></strong>
                                     </a>
                                     <ul class="dropdown-menu">
@@ -230,17 +231,18 @@
                                                 </a>
                                             </li>
                                         @endcan
-                                        @can('create', \App\Models\License::class)
-                                            <li {!! (Request::is('licenses/create') ? 'class="active"' : '') !!}>
-                                                <a href="{{ route('licenses.create') }}" tabindex="-1">
+                                        @can('create', \App\Models\Component::class)
+                                            <li {!! (Request::is('components/create') ? 'class="active"' : '') !!}>
+                                                <a href="{{ route('components.create') }}" tabindex="-1">
                                                 <img 
-                                                    src="{{config('app.url').'/img/icons/software_licenses.svg'}}"
+                                                    src="{{config('app.url').'/img/icons/spares.svg'}}"
                                                     alt="{{ $snipeSettings->site_name }} logo">
-                                                    <!-- <i class="far fa-save fa-fw" aria-hidden="true"></i> -->
-                                                    {{ trans('general.license') }}
+                                                    <!-- <i class="far fa-hdd fa-fw" aria-hidden="true"></i> -->
+                                                    {{ trans('general.component') }}
                                                 </a>
                                             </li>
                                         @endcan
+
                                         @can('create', \App\Models\Accessory::class)
                                             <li {!! (Request::is('accessories/create') ? 'class="active"' : '') !!}>
                                                 <a href="{{ route('accessories.create') }}" tabindex="-1">
@@ -252,6 +254,7 @@
                                                     {{ trans('general.accessory') }}</a>
                                             </li>
                                         @endcan
+
                                         @can('create', \App\Models\Consumable::class)
                                             <li {!! (Request::is('consunmables/create') ? 'class="active"' : '') !!}>
                                                 <a href="{{ route('consumables.create') }}" tabindex="-1">
@@ -263,14 +266,14 @@
                                                 </a>
                                             </li>
                                         @endcan
-                                        @can('create', \App\Models\Component::class)
-                                            <li {!! (Request::is('components/create') ? 'class="active"' : '') !!}>
-                                                <a href="{{ route('components.create') }}" tabindex="-1">
+                                        @can('create', \App\Models\License::class)
+                                            <li {!! (Request::is('licenses/create') ? 'class="active"' : '') !!}>
+                                                <a href="{{ route('licenses.create') }}" tabindex="-1">
                                                 <img 
-                                                    src="{{config('app.url').'/img/icons/spares.svg'}}"
+                                                    src="{{config('app.url').'/img/icons/software_licenses.svg'}}"
                                                     alt="{{ $snipeSettings->site_name }} logo">
-                                                    <!-- <i class="far fa-hdd fa-fw" aria-hidden="true"></i> -->
-                                                    {{ trans('general.component') }}
+                                                    <!-- <i class="far fa-save fa-fw" aria-hidden="true"></i> -->
+                                                    {{ trans('general.license') }}
                                                 </a>
                                             </li>
                                         @endcan
@@ -296,7 +299,11 @@
 
                                     <li class="dropdown tasks-menu">
                                         <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                            <i class="far fa-flag" aria-hidden="true"></i>
+                                            <img 
+                                                    src="{{config('app.url').'/img/icons/notifications.svg'}}"
+                                                    alt="{{ $snipeSettings->site_name }} logo">
+                                                 
+                                            <!-- <i class="far fa-flag" aria-hidden="true"></i> -->
                                             <span class="sr-only">{{ trans('general.alerts') }}</span>
                                             @if (count($alert_items))
                                                 <span class="label label-danger">{{ count($alert_items) }}</span>
@@ -353,7 +360,7 @@
                                             <i class="fas fa-users" aria-hidden="true"></i>
                                         @endif
 
-                                        <span class="hidden-xs">{{ Auth::user()->first_name }}arun <strong
+                                        <span class="hidden-xs">{{ Auth::user()->first_name }}<strong
                                                     class="caret"></strong></span>
                                     </a>
                                     <ul class="dropdown-menu">
@@ -423,7 +430,11 @@
                             @can('superadmin')
                                 <li>
                                     <a href="{{ route('settings.index') }}">
-                                        <i class="fa fa-cogs fa-fw" aria-hidden="true"></i>
+                                    <img 
+                                                    src="{{config('app.url').'/img/icons/settings.svg'}}"
+                                                    alt="{{ $snipeSettings->site_name }} logo">
+                                              
+                                        <!-- <i class="fa fa-cogs fa-fw" aria-hidden="true"></i> -->
                                         <span class="sr-only">{{ trans('general.admin') }}</span>
                                     </a>
                                 </li>
@@ -431,7 +442,7 @@
                         </ul>
                     </div>
                 </nav>
-                <a href="#" style="float:left" class="sidebar-toggle-mobile visible-xs btn" data-toggle="push-menu"
+                <a href="#" style="float:left;" class="sidebar-toggle-mobile visible-xs btn" data-toggle="push-menu"
                    role="button">
                     <span class="sr-only">{{ trans('general.toggle_navigation') }}</span>
                     <i class="fas fa-bars"></i>
@@ -455,14 +466,19 @@
                         @endcan
                         @can('index', \App\Models\Asset::class)
                             <li class="treeview{{ ((Request::is('statuslabels/*') || Request::is('hardware*')) ? ' active' : '') }}">
-                                <a href="#"><i class="fas fa-barcode fa-fw" aria-hidden="true"></i>
+                                <!-- <a href="#"><i class="fas fa-barcode fa-fw" aria-hidden="true"></i> -->
+                                <a href="#">
+                                <img 
+                                                    src="{{config('app.url').'/img/icons/sidebar/assets.svg'}}"
+                                                    alt="{{ $snipeSettings->site_name }} logo">
+                                                
                                     <span>{{ trans('general.assets') }}</span>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
                                 <ul class="treeview-menu">
                                     <li>
                                         <a href="{{ url('hardware') }}">
-                                            <i class="far fa-circle text-grey fa-fw" aria-hidden="true"></i>
+                                            <!-- <i class="far fa-circle text-grey fa-fw" aria-hidden="true"></i> -->
                                             {{ trans('general.list_all') }}
                                         </a>
                                     </li>
@@ -603,16 +619,23 @@
                         @can('view', \App\Models\License::class)
                             <li{!! (Request::is('licenses*') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('licenses.index') }}">
-                                    <i class="far fa-save fa-fw"></i>
-                                    <span>{{ trans('general.licenses') }}</span>
+                                    <!-- <i class="far fa-save fa-fw"></i> -->
+                                    <img 
+                                                    src="{{config('app.url').'/img/icons/sidebar/software_licenses.svg'}}"
+                                                    alt="{{ $snipeSettings->site_name }} logo">
+                                           
+                                    <span>{{ trans('general.license') }}</span>
                                 </a>
                             </li>
                         @endcan
                         @can('index', \App\Models\Accessory::class)
                             <li{!! (Request::is('accessories*') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('accessories.index') }}">
-                                    <i class="far fa-keyboard fa-fw"></i>
-                                    
+                                    <!-- <i class="far fa-keyboard fa-fw"></i> -->
+                                    <img 
+                                                    src="{{config('app.url').'/img/icons/sidebar/accessories.svg'}}"
+                                                    alt="{{ $snipeSettings->site_name }} logo">
+                                           
                                     <span>{{ trans('general.accessories') }}</span>
                                 </a>
                             </li>
@@ -620,8 +643,11 @@
                         @can('view', \App\Models\Consumable::class)
                             <li{!! (Request::is('consumables*') ? ' class="active"' : '') !!}>
                                 <a href="{{ url('consumables') }}">
-                                    <i class="fas fa-tint fa-fw"></i>
-                                    
+                                    <!-- <i class="fas fa-tint fa-fw"></i> -->
+                                    <img 
+                                                    src="{{config('app.url').'/img/icons/sidebar/consumables.svg'}}"
+                                                    alt="{{ $snipeSettings->site_name }} logo">
+                                         
                                     <span>{{ trans('general.consumables') }}</span>
                                 </a>
                             </li>
@@ -629,16 +655,23 @@
                         @can('view', \App\Models\Component::class)
                             <li{!! (Request::is('components*') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('components.index') }}">
-                                    <i class="far fa-hdd fa-fw"></i>
-                                    <span>{{ trans('general.components') }}</span>
+                                    <!-- <i class="far fa-hdd fa-fw"></i> -->
+                                    <img 
+                                                    src="{{config('app.url').'/img/icons/sidebar/spares.svg'}}"
+                                                    alt="{{ $snipeSettings->site_name }} logo">
+                                         
+                                    <span>{{ trans('general.component') }}</span>
                                 </a>
                             </li>
                         @endcan
                         @can('view', \App\Models\PredefinedKit::class)
                             <li{!! (Request::is('kits') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('kits.index') }}">
-                                    <i class="fa fa-object-group fa-fw"></i>
-                                   
+                                    <!-- <i class="fa fa-object-group fa-fw"></i> -->
+                                    <img 
+                                        src="{{config('app.url').'/img/icons/sidebar/kits.svg'}}"
+                                        alt="{{ $snipeSettings->site_name }} logo">
+                                    
                                     <span>{{ trans('general.kits') }}</span>
                                 </a>
                             </li>
@@ -647,16 +680,22 @@
                         @can('view', \App\Models\User::class)
                             <li{!! (Request::is('users*') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('users.index') }}" accesskey="6">
-                                    <i class="fas fa-users fa-fw"></i>
+                                    <!-- <i class="fas fa-users fa-fw"></i> -->
+                                    <img 
+                                        src="{{config('app.url').'/img/icons/sidebar/users.svg'}}"
+                                        alt="{{ $snipeSettings->site_name }} logo">
                                     
-                                    <span>{{ trans('general.people') }}</span>
+                                    <span>{{ trans('general.user') }}</span>
                                 </a>
                             </li>
                         @endcan
                         @can('import')
                             <li{!! (Request::is('import/*') ? ' class="active"' : '') !!}>
                                 <a href="{{ route('imports.index') }}">
-                                    <i class="fas fa-cloud-download-alt fa-fw" aria-hidden="true"></i>
+                                    <!-- <i class="fas fa-cloud-download-alt fa-fw" aria-hidden="true"></i> -->
+                                    <img 
+                                        src="{{config('app.url').'/img/icons/sidebar/import.svg'}}"
+                                        alt="{{ $snipeSettings->site_name }} logo">
                                     
                                     <span>{{ trans('general.import') }}</span>
                                 </a>
@@ -666,7 +705,11 @@
                         @can('backend.interact')
                             <li class="treeview {!! in_array(Request::route()->getName(),App\Helpers\Helper::SettingUrls()) ? ' active': '' !!}">
                                 <a href="#" id="settings">
-                                    <i class="fas fa-cog" aria-hidden="true"></i>
+                                    <img 
+                                            src="{{config('app.url').'/img/icons/sidebar/settings.svg'}}"
+                                            alt="{{ $snipeSettings->site_name }} logo">
+                                        
+                                    <!-- <i class="fas fa-cog" aria-hidden="true"></i> -->
                                     <span>{{ trans('general.settings') }}</span>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
@@ -758,7 +801,11 @@
                         @can('reports.view')
                             <li class="treeview{{ (Request::is('reports*') ? ' active' : '') }}">
                                 <a href="#" class="dropdown-toggle">
-                                    <i class="fas fa-chart-bar fa-fw"></i>         
+                                    <!-- <i class="fas fa-chart-bar fa-fw"></i>          -->
+                                    <img 
+                                        src="{{config('app.url').'/img/icons/sidebar/reports.svg'}}"
+                                        alt="{{ $snipeSettings->site_name }} logo">
+                                    
                                     <span>{{ trans('general.reports') }}</span>
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </a>
@@ -821,6 +868,13 @@
                     </ul>
                 </section>
                 <!-- /.sidebar -->
+                <div style="padding-left:1%;padding-top:1%;position: fixed;padding-right:10px">
+                    <a>
+                        <img src="{{config('app.url').'/img/icons/sidebar_logo.svg'}}" alt="{{ $snipeSettings->site_name }} logo">
+                    </a>
+                    <span style="color : #F07212;font-size:1vw">taggit.cloud</span>
+                </div>
+                                    
             </aside>
 
             <!-- Content Wrapper. Contains page content -->
@@ -883,7 +937,7 @@
 
             </div><!-- /.content-wrapper -->
 
-            <footer class="main-footer hidden-print">
+            <!-- <footer class="main-footer hidden-print" style="padding-left:0px;padding-right:10px;">
 
                 <div class="pull-right hidden-xs">
                     @if ($snipeSettings->version_footer!='off')
@@ -915,13 +969,13 @@
                     <div class="pull-right">
                         {!!  Helper::parseEscapedMarkedown($snipeSettings->footer_text)  !!}
                     </div>
-                @endif
+                @endif -->
 
 
                 <!-- <a target="_blank" href="https://snipeitapp.com" rel="noopener">Snipe-IT</a> is open source software,
                 made with <i class="fas fa-heart" style="color: #a94442; font-size: 10px" aria-hidden="true"></i><span
                         class="sr-only">love</span> by <a href="https://twitter.com/snipeitapp" rel="noopener">@snipeitapp</a>. -->
-            </footer>
+            <!-- </footer> -->
 
 
         </div><!-- ./wrapper -->
